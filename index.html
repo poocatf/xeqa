@@ -51,18 +51,39 @@
             display: inline-block;
             transition: 0.3s;
             position: relative;
-            text-shadow: none; /* Remove text shadow here */
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add drop shadow */
+            text-shadow: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
         }
         .links a:hover {
             background: #76c776;
-            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
         }
         .links img {
             width: 20px;
             height: 20px;
             margin-left: 10px;
             vertical-align: middle;
+        }
+        .intro-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: white;
+            background-color: #ff4500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .intro-btn:hover {
+            background-color: #e03e00;
+        }
+        #introText {
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
     </style>
 </head>
@@ -86,6 +107,29 @@
             <a href="https://www.youtube.com/@ZeqaVideos" target="_blank">YouTube Channel <img src="youtube.png" alt="YouTube"></a>
             <a href="https://discord.gg/cAP3y63ZTM" target="_blank">Discord Server <img src="discord.png" alt="Discord"></a>
         </div>
+
+        <!-- Play Intro Button -->
+        <button class="intro-btn" onclick="playIntro()">Play Intro</button>
+        <p id="introText">Hello, I'm Zeqa</p>
     </div>
+
+    <audio id="introAudio" src="intro.wav"></audio>
+
+    <script>
+        function playIntro() {
+            let audio = document.getElementById("introAudio");
+            let introText = document.getElementById("introText");
+
+            if (audio) {
+                audio.play().then(() => {
+                    introText.style.opacity = "1"; // Fade in
+                }).catch(error => console.error("Audio play error:", error));
+
+                audio.onended = function () {
+                    introText.style.opacity = "0"; // Fade out when audio stops
+                };
+            }
+        }
+    </script>
 </body>
 </html>
